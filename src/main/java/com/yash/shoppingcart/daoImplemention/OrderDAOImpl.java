@@ -3,13 +3,14 @@ package com.yash.shoppingcart.daoImplemention;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
- 
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yash.shoppingcart.dao.OrderDAO;
@@ -26,6 +27,7 @@ import com.yash.shoppingcart.model.PaginationResult;
 
 //Transactional for Hibernate
 @Transactional
+@Repository
 public class OrderDAOImpl implements OrderDAO {
 
 	@Autowired
@@ -87,7 +89,7 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	// @page = 1, 2, ...
-	
+
 	public PaginationResult<OrderInfo> listOrderInfo(int page, int maxResult, int maxNavigationPage) {
 		String sql = "Select new " + OrderInfo.class.getName()//
 				+ "(ord.id, ord.orderDate, ord.orderNum, ord.amount, "
@@ -108,7 +110,6 @@ public class OrderDAOImpl implements OrderDAO {
 		return (Order) crit.uniqueResult();
 	}
 
-	
 	public OrderInfo getOrderInfo(String orderId) {
 		Order order = this.findOrder(orderId);
 		if (order == null) {
@@ -119,7 +120,6 @@ public class OrderDAOImpl implements OrderDAO {
 				order.getCustomerAddress(), order.getCustomerEmail(), order.getCustomerPhone());
 	}
 
-	
 	public List<OrderDetailInfo> listOrderDetailInfos(String orderId) {
 		String sql = "Select new " + OrderDetailInfo.class.getName() //
 				+ "(d.id, d.product.code, d.product.name , d.quanity,d.price,d.amount) "//
