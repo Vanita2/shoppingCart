@@ -7,10 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.yash.shoppingcart.dao.AccountDAO;
 import com.yash.shoppingcart.entity.Account;
-
+@Repository
 @Transactional
 public class AccountDAOImpl implements AccountDAO {
 
